@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 token = "NDA0NjE4MDA4MjA0NTQxOTYy.DUoAtQ.DqDyvVDhSIQSMD-KNRtx86WKRgo"
 unit_price = 0.019
 correction = 131
+yukichi = 10000
 
 client = discord.Client()
 client.get_all_members()
@@ -48,13 +49,15 @@ async def on_message(message):
 
             await client.send_message(message.channel, echo)
         elif message.content.startswith("?諭吉") | message.content.startswith("？諭吉"):
+            # ヤフーファイナンスからEUR-JPYを取得
             url = "https://stocks.finance.yahoo.co.jp/stocks/detail/?code=eurjpy"
             res = req.urlopen(url)
 
             soup = BeautifulSoup(res, 'html.parser')
             eur = soup.select_one(".stoksPrice").string
 
-            bankera = 10000 / (float(eur) * unit_price)
+            # １万円あたりの購入数を算出
+            bankera = yukichi / (float(eur) * unit_price)
             echo = "1万円で約" + str(round(bankera, 8)) + "コイン購入できます。"
 
             await client.send_message(message.channel, echo)
