@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 #token = "NDA1MzY1ODI0NDQyOTkwNTky.DUjV6A.kVeYsW0rldoLX4BtKczQCiXqI58"
 # テストtoken
 token = "NDA0NjE4MDA4MjA0NTQxOTYy.DUoAtQ.DqDyvVDhSIQSMD-KNRtx86WKRgo"
-unit_price = 0.019
+unit_price = 0.02
 correction = 131
 yukichi = 10000
 
@@ -45,7 +45,7 @@ async def on_message(message):
             eur = round(float(coin['price_eur']), 3)
             # バンクエラの価格で割り込み、購入可能なコイン数を算出
             bankera = (eur - correction) / unit_price
-            echo = "1BTCで約" + str(round(bankera, 8)) + "コイン購入できます。"
+            echo = "1BTCで約" + str(round(bankera, 8)) + "BNK購入できます。"
 
             await client.send_message(message.channel, echo)
         elif message.content.startswith("?諭吉") | message.content.startswith("？諭吉"):
@@ -58,7 +58,7 @@ async def on_message(message):
 
             # １万円あたりの購入数を算出
             bankera = yukichi / (float(eur) * unit_price)
-            echo = "1万円で約" + str(round(bankera, 8)) + "コイン購入できます。"
+            echo = "1万円で約" + str(round(bankera, 8)) + "BNK購入できます。"
 
             await client.send_message(message.channel, echo)
 
