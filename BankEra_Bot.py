@@ -45,7 +45,7 @@ async def on_message(message):
             price_ticker = json.loads(res.read().decode('utf8'))
 
             # 価格のメッセージを設定し、出力
-            echo = "1BTCで約" + str(round(price_ticker['last'], 1)) + "コイン購入できます。"
+            echo = "1BTCで約" + str(round(price_ticker['last'], 1)) + "BNK購入できます。"
             await client.send_message(message.channel, echo)
 
         elif message.content.startswith("?xem") | message.content.startswith("?XEM"):
@@ -57,7 +57,7 @@ async def on_message(message):
             price_ticker = json.loads(res.read().decode('utf8'))
 
             # 価格のメッセージを設定し、出力
-            echo = "1XEMで約" + str(round(price_ticker['last'], 1)) + "コイン購入できます。"
+            echo = "1XEMで約" + str(round(price_ticker['last'], 1)) + "BNK購入できます。"
             await client.send_message(message.channel, echo)
 
         elif message.content.startswith("?eth") | message.content.startswith("?ETH"):
@@ -69,7 +69,7 @@ async def on_message(message):
             price_ticker = json.loads(res.read().decode('utf8'))
 
             # 価格のメッセージを設定し、出力
-            echo = "1ETHで約" + str(round(price_ticker['last'], 1)) + "コイン購入できます。"
+            echo = "1ETHで約" + str(round(price_ticker['last'], 1)) + "BNK購入できます。"
             await client.send_message(message.channel, echo)
 
         elif message.content.startswith("?諭吉") | message.content.startswith("？諭吉"):
@@ -83,7 +83,7 @@ async def on_message(message):
             bankera = price_ticker['last'] * yukichi
 
             # 価格のメッセージを設定し、出力
-            echo = "1万円で約" + str(round(bankera, 1)) + "コイン購入できます。"
+            echo = "1万円で約" + str(round(bankera, 1)) + "BNK購入できます。"
             await client.send_message(message.channel, echo)
 
 
