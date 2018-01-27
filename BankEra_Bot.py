@@ -7,9 +7,9 @@ import json
 
 
 # 本番token
-#token = "NDA1MzY1ODI0NDQyOTkwNTky.DUjV6A.kVeYsW0rldoLX4BtKczQCiXqI58"
+token = "NDA1MzY1ODI0NDQyOTkwNTky.DUjV6A.kVeYsW0rldoLX4BtKczQCiXqI58"
 # テストtoken
-token = "NDA0NjE4MDA4MjA0NTQxOTYy.DUoAtQ.DqDyvVDhSIQSMD-KNRtx86WKRgo"
+#token = "NDA0NjE4MDA4MjA0NTQxOTYy.DUoAtQ.DqDyvVDhSIQSMD-KNRtx86WKRgo"
 # 1万円計算用
 yukichi = 10000
 
@@ -46,6 +46,30 @@ async def on_message(message):
 
             # 価格のメッセージを設定し、出力
             echo = "1BTCで約" + str(price_ticker['last']) + "コイン購入できます。"
+            await client.send_message(message.channel, echo)
+
+        elif message.content.startswith("?xem") | message.content.startswith("?XEM"):
+            # spectrocoinから相場価格を取得(From:BNK To:XEM)
+            url = 'https://spectrocoin.com/scapi/ticker/BNK/XEM'
+            res = req.urlopen(url)
+
+            # 取得した価格をjsonに変換
+            price_ticker = json.loads(res.read().decode('utf8'))
+
+            # 価格のメッセージを設定し、出力
+            echo = "1XMEで約" + str(price_ticker['last']) + "コイン購入できます。"
+            await client.send_message(message.channel, echo)
+
+        elif message.content.startswith("?eth") | message.content.startswith("?ETH"):
+            # spectrocoinから相場価格を取得(From:BNK To:XEM)
+            url = 'https://spectrocoin.com/scapi/ticker/BNK/ETH'
+            res = req.urlopen(url)
+
+            # 取得した価格をjsonに変換
+            price_ticker = json.loads(res.read().decode('utf8'))
+
+            # 価格のメッセージを設定し、出力
+            echo = "1ETHで約" + str(price_ticker['last']) + "コイン購入できます。"
             await client.send_message(message.channel, echo)
 
         elif message.content.startswith("?諭吉") | message.content.startswith("？諭吉"):
