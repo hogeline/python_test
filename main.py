@@ -3,7 +3,7 @@ import discord
 #import json
 
 from currency import *
-#from coinmarketcap import Market
+from coinmarketcap import Market
 #from bs4 import BeautifulSoup
 
 
@@ -16,6 +16,7 @@ currency_list = ['?btc', '?eth', '?xem', '?諭吉']
 
 client = discord.Client()
 client.get_all_members()
+market = Market()
 
 @client.event
 async def on_ready():
@@ -47,5 +48,27 @@ async def on_message(message):
             # 価格のメッセージを出力
             await client.send_message(message.channel, msg)
 
+        if message.channel.id == "405377859662774281":
+            if message.content.lower() == "?cmc":
+                # coinmarketcapから価格を取得
+                coin = market.ticker("bitcoin", convert='JPY')[0]
+                msg = "Coinmarketcap：1BTCは" + str(coin['price_jpy']) + "円です。"
+                # 価格のメッセージを出力
+                await client.send_message(message.channel, msg)
+                # coinmarketcapから価格を取得
+                coin = market.ticker("ethereum", convert='JPY')[0]
+                msg = "Coinmarketcap：1ETHは" + str(coin['price_jpy']) + "円です。"
+                # 価格のメッセージを出力
+                await client.send_message(message.channel, msg)
+                # coinmarketcapから価格を取得
+                coin = market.ticker("ripple", convert='JPY')[0]
+                msg = "Coinmarketcap：1XRPは" + str(coin['price_jpy']) + "円です。"
+                # 価格のメッセージを出力
+                await client.send_message(message.channel, msg)
+                # coinmarketcapから価格を取得
+                coin = market.ticker("nem", convert='JPY')[0]
+                msg = "Coinmarketcap：1XEMは" + str(coin['price_jpy']) + "円です。"
+                # 価格のメッセージを出力
+                await client.send_message(message.channel, msg)
 
 client.run(token)
