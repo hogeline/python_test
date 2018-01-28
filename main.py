@@ -36,7 +36,7 @@ async def on_message(message):
             # メッセージが送られてきたチャンネルへメッセージを送ります
             await client.send_message(message.channel, msg)
 
-        elif message.content in currency_list:
+        elif message.content.lower() in currency_list:
             src = message.content.lower().replace("?", "") + ".getBnk"
 
             if "諭吉" in src:
