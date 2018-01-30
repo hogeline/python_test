@@ -70,5 +70,23 @@ async def on_message(message):
                 msg = "Coinmarketcap：1XEMは" + str(coin['price_jpy']) + "円です。"
                 # 価格のメッセージを出力
                 await client.send_message(message.channel, msg)
+                # coinmarketcapから価格を取得
+                coin = market.ticker("experience-points", convert='JPY')[0]
+                msg = "Coinmarketcap：1XPは" + str(coin['price_jpy']) + "円です。"
+                # 価格のメッセージを出力
+                await client.send_message(message.channel, msg)
+            if message.content.lower() == "!conv":
+                # coinmarketcapから価格を取得
+                coin = market.ticker(limit=0)
+                for i in range(len(coin)):
+                    keys = "'" + coin[i]['symbol'] + "'"
+                    values = "'" + coin[i]['name'] + "'"
+                    if i != len(coin) - 1:
+                        element = element + keys + ":" + values + ","
+                    else:
+                        element = element + keys + ":" + values + "}"
+                f = open('name_conv_list.txt', 'w')
+                f.write(element)
+                f.close()
 
 client.run(token)
