@@ -27,6 +27,9 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    global element
+    element = "{"
+
     # 送り主がBotだった場合反応したくないので
     if client.user != message.author:
         if message.content.startswith("?エラリスト") | message.content.startswith("？エラリスト"):
