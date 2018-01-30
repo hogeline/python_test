@@ -88,5 +88,8 @@ async def on_message(message):
                 f = open('name_conv_list.txt', 'w')
                 f.write(element)
                 f.close()
+            elif message.content.lower() == "!view_name":
+                await client.send_file(message.channel, 'name_conv_list.txt')
+
 
 client.run(token)
