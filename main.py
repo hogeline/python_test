@@ -91,7 +91,7 @@ async def on_message(message):
                 f = open('name_conv_list.txt', 'w')
                 f.write(element)
                 f.close()
-            elif message.content.lower() == "!view_name":
+            elif message.content.lower() == "!down_name":
                 await client.send_file(message.channel, 'name_conv_list.txt')
 
 
