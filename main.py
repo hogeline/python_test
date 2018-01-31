@@ -10,10 +10,10 @@ from coinmarketcap import Market
 
 
 # 本番token
-token = "NDA1MzY1ODI0NDQyOTkwNTky.DUjV6A.kVeYsW0rldoLX4BtKczQCiXqI58"
+# token = "NDA1MzY1ODI0NDQyOTkwNTky.DUjV6A.kVeYsW0rldoLX4BtKczQCiXqI58"
 # pettyaテストtoken
-#token = "NDA0NjE4MDA4MjA0NTQxOTYy.DUoAtQ.DqDyvVDhSIQSMD-KNRtx86WKRgo"
-# token = "NDA3NTYwNTkxNDM2NDE0OTg2.DVK3gg.3tFv-GiJ0le-qYGGFynn5xARa4A"
+# token = "NDA0NjE4MDA4MjA0NTQxOTYy.DUoAtQ.DqDyvVDhSIQSMD-KNRtx86WKRgo"
+token = "NDA3NTYwNTkxNDM2NDE0OTg2.DVK3gg.3tFv-GiJ0le-qYGGFynn5xARa4A"
 # 通貨変換対象リスト
 currency_list = ['?btc', '?eth', '?xem', '?諭吉']
 
@@ -54,64 +54,67 @@ async def on_message(message):
             # 価格のメッセージを出力
             await client.send_message(message.channel, msg)
 
-        if message.channel.id == "405377859662774281":
-            if message.content.lower() == "?cmc":
-                # coinmarketcapから価格を取得
-                coin = market.ticker("bitcoin", convert='JPY')[0]
-                msg = "Coinmarketcap：1BTCは" + str(coin['price_jpy']) + "円です。"
-                # 価格のメッセージを出力
-                await client.send_message(message.channel, msg)
-                # coinmarketcapから価格を取得
-                coin = market.ticker("ethereum", convert='JPY')[0]
-                msg = "Coinmarketcap：1ETHは" + str(coin['price_jpy']) + "円です。"
-                # 価格のメッセージを出力
-                await client.send_message(message.channel, msg)
-                # coinmarketcapから価格を取得
-                coin = market.ticker("ripple", convert='JPY')[0]
-                msg = "Coinmarketcap：1XRPは" + str(coin['price_jpy']) + "円です。"
-                # 価格のメッセージを出力
-                await client.send_message(message.channel, msg)
-                # coinmarketcapから価格を取得
-                coin = market.ticker("nem", convert='JPY')[0]
-                msg = "Coinmarketcap：1XEMは" + str(coin['price_jpy']) + "円です。"
-                # 価格のメッセージを出力
-                await client.send_message(message.channel, msg)
-                # coinmarketcapから価格を取得
-                coin = market.ticker("experience-points", convert='JPY')[0]
-                msg = "Coinmarketcap：1XPは" + str(coin['price_jpy']) + "円です。"
-                # 価格のメッセージを出力
-                await client.send_message(message.channel, msg)
+        #if message.channel.id == "405377859662774281":
+        if message.content.lower() == "?cmc":
+            # coinmarketcapから価格を取得
+            coin = market.ticker("bitcoin", convert='JPY')[0]
+            msg = "Coinmarketcap：1BTCは" + str(coin['price_jpy']) + "円です。"
+            # 価格のメッセージを出力
+            await client.send_message(message.channel, msg)
+            # coinmarketcapから価格を取得
+            coin = market.ticker("ethereum", convert='JPY')[0]
+            msg = "Coinmarketcap：1ETHは" + str(coin['price_jpy']) + "円です。"
+            # 価格のメッセージを出力
+            await client.send_message(message.channel, msg)
+            # coinmarketcapから価格を取得
+            coin = market.ticker("ripple", convert='JPY')[0]
+            msg = "Coinmarketcap：1XRPは" + str(coin['price_jpy']) + "円です。"
+            # 価格のメッセージを出力
+            await client.send_message(message.channel, msg)
+            # coinmarketcapから価格を取得
+            coin = market.ticker("nem", convert='JPY')[0]
+            msg = "Coinmarketcap：1XEMは" + str(coin['price_jpy']) + "円です。"
+            # 価格のメッセージを出力
+            await client.send_message(message.channel, msg)
+            # coinmarketcapから価格を取得
+            coin = market.ticker("experience-points", convert='JPY')[0]
+            msg = "Coinmarketcap：1XPは" + str(coin['price_jpy']) + "円です。"
+            # 価格のメッセージを出力
+            await client.send_message(message.channel, msg)
 
-                # 送られてきたメッセージの引数が2つあった場合
-            elif len(message.content.split(" ")) == 2:
-                # 仮想通貨リストファイルのPATH
-                path = 'name_conv_list.txt'
-                # ファイルが存在しているとき
-                if os.path.isfile(path):
-                    # ファイルの読み込み
-                    f = open(path, 'r')
-                    # JSON 形式で読み込む
-                    json_data = json.load(f)
-                    # ファイルクローズ
-                    f.close()
-                    # ファイルの中身確認用
-                    # print("{}".format(json.dumps(json_data, indent=4)))
+            # 送られてきたメッセージの引数が2つあった場合
+        elif len(message.content.split(" ")) == 2:
+            # 仮想通貨リストファイルのPATH
+            path = 'name_conv_list.txt'
+            # ファイルが存在しているとき
+            if os.path.isfile(path):
+                # ファイルの読み込み
+                f = open(path, 'r')
+                # JSON 形式で読み込む
+                json_data = json.load(f)
+                # ファイルクローズ
+                f.close()
+                # ファイルの中身確認用
+                # print("{}".format(json.dumps(json_data, indent=4)))
 
-                    # float型に変換可能(実数)かどうかの確認に正規表現を使う
-                    num_reg = re.compile("^\d+(\.\d+)?\Z")
-                    # メッセージから引数を取得
-                    args = message.content.split(" ")
-                    key = args[0].replace("?", "").upper()
-                    # 第1引数のkeyがjson_dataの中にあり、かつ、第2引数が実数なら
-                    # coin * 枚数を計算
-                    if key in json_data.keys() and bool(num_reg.match(args[1])):
-                        # coinmarketcapから価格を取得
-                        coin = market.ticker(json_data[key].replace(" ", "-"), convert='JPY')[0]
-                        price = float(coin['price_jpy']) * float(args[1])
-                        msg = "Coinmarketcap：" + str(args[1]) + key +"は" + str(round(price, 3)) + "円です。"
-                        # 価格のメッセージを出力
-                        await client.send_message(message.channel, msg)
-            elif message.content.lower() == "!conv":
+                # float型に変換可能(実数)かどうかの確認に正規表現を使う
+                num_reg = re.compile("^\d+(\.\d+)?\Z")
+                # メッセージから引数を取得
+                args = message.content.split(" ")
+                key = args[0].replace("?", "").upper()
+                # 第1引数のkeyがjson_dataの中にあり、かつ、第2引数が実数なら
+                # coin * 枚数を計算
+                if key in json_data.keys() and bool(num_reg.match(args[1])):
+                    # coinmarketcapから価格を取得
+                    coin = market.ticker(json_data[key].replace(" ", "-"), convert='JPY')[0]
+                    price = float(coin['price_jpy']) * float(args[1])
+                    msg = "Coinmarketcap：" + str(args[1]) + key +"は" + str(round(price, 3)) + "円です。"
+                    # 価格のメッセージを出力
+                    await client.send_message(message.channel, msg)
+            else:
+                msg = "ファイルがありません"
+                await client.send_message(message.channel, msg)
+        elif message.content.lower() == "!conv":
             # coinmarketcapから価格を取得
             coin = market.ticker(limit=0)
             for i in range(len(coin)):
